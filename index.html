@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+<!--Personal CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+
+    <title>Giftastic Project</title>
+</head>
+
+<body>
+<!--Header-->
+<div class="container-fluid">
+    <a href="http://clipart-library.com/clipart/rcnr5jpKi.htm"><img src="http://clipart-library.com/images/rcnr5jpKi.jpg" id="yosemiteSam" width="192" height="120" /></a>
+
+    <a href="http://clipart-library.com/clipart/6ip5e4kbT.htm"><img src="http://clipart-library.com/images/6ip5e4kbT.jpg" id="bugsBunny" width="192" height="120" /></a>
+
+    <a href="http://clipart-library.com/clipart/8T65p76kc.htm"><img src="http://clipart-library.com/images/8T65p76kc.jpg" id="greenLT" width="192" height="120" /></a>
+
+    <a href="http://clipart-library.com/clipart/rinr5jj7T.htm"><img src="http://clipart-library.com/images/rinr5jj7T.gif" id="marvinMartian" width="192" height="120" /></a>
+
+    <a href="http://clipart-library.com/clipart/kiMKBAKdT.htm"><img src="http://clipart-library.com/images/kiMKBAKdT.jpg" id="orangeLT" width="192" height="120" /></a>
+
+    <a href="http://clipart-library.com/clipart/gceE4GxMi.htm"><img src="http://clipart-library.com/images/gceE4GxMi.jpg" id="wileEcoyote" width="192" height="120" /></a>
+
+    <a href="http://clipart-library.com/clipart/Lcd5bE99i.htm"><img src="http://clipart-library.com/images/Lcd5bE99i.jpg" id="tasmanianDevil" width="192" height="120" /></a>
+    <!-- <a href="http://clipart-library.com/clipart/zTX5MjLEc.htm"><img src="http://clipart-library.com/images/zTX5MjLEc.jpg" id="speedyGonzalez" width="192" height="120" /></a> -->
+
+  </div>
+    <br></br>
+
+           
+
+    <!--Title, Instructions, Buttons-->
+        <div id="main">
+            <div class="row row-top col-sm-12 col-md-12">
+                <h1>Looney Tune Characters</h1>
+                <p>Below are several cartoon characters associated with the classic series ~ Looney Tunes. </p>
+                <p>When you click a button, ten static gifs concerning that character will appear. </p>
+                <p>If you click a gif, it will animate. </p>
+            </div>
+        </div>
+    <!-- data-search & variable x below allow one to specify the button clicked-->
+    <button type="button" data-search="Yosemite Sam" class="btn btn-success">Yosemite Sam</button>
+    <button type="button" class="btn btn-success" data-search="Bugs Bunny">Bugs Bunny</button>
+    <button type="button" class="btn btn-success" data-search="Marvin the Martian">Marvin the Martian</button>
+    <button type="button" class="btn btn-success" data-search="Wile E Coyote">Wile E Coyote</button>
+    <button type="button" class="btn btn-success" data-search="Taz">Taz</button>
+
+    <!-- <button type="button" class="btn btn-success" data-search="Speedy Gonzalez">Speedy Gonzalez</button> -->
+        <p></p>
+    <!--making a div id so that the prepended giphys don't push down the buttons-->
+    <div id="giphyArea"></div>
+
+    <script type="text/javascript">
+        $("button").on("click", function() {
+           // console.log("Button has been clicked !"); 
+
+           var x= $(this).data("search");
+                console.log(x);
+
+    // linking variable X (specific buttons) to Giphy API
+
+            var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=tTEa8fvfKr8Saeh5ZKDzFF6yKCCiuzrJ&q=" + x + "&limit=10&offset=0&rating=G&lang=en"
+                console.log(queryURL);
+    
+    // making AJAX call to bring Giphy data/object to HTML
+
+            $.ajax({url: queryURL, method: 'GET'})
+                .done(function(response){
+                   // console.log(response); -- below we'll console log & append rating
+                   // console.log(response.data[0].rating); - this showed the first item in the data array
+
+                   // using FOR LOOP to list first 10 giphys 
+                    for(var i=0; i<response.data.length; i++){
+
+                        //making rating visual on html page (appending before one another)
+                        $('#giphyArea').prepend("<p>Rating: " + response.data[i].rating + "</p>");
+
+                        //making image visual on html page (appending)
+                        $('#giphyArea').prepend("<img src=" + response.data[i].images.downsized.url + '">"');
+
+                    }
+
+                
+                });
+
+        });
+    
+    </script>
+
+        
+    <!--This is the JS Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+    <script type="text/javascript" src="assets/javascript/wifihero.js"></script>
+
+</body>
+
+</html>
