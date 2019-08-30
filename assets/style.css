@@ -1,5 +1,20 @@
 body {
     background: black;
-    color: yellow;
     text-align: center;
 }
+
+#main {
+    color: yellow;
+}
+
+.button {
+    border: white;
+}
+#secondary {
+    color: greenyellow;
+}
+
+#resultArea {
+    color: orangered;
+}
+
